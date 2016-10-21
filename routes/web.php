@@ -20,4 +20,4 @@ Route::group(['prefix' => 'api/v1'], function() {
 	Route::resource('notes','NotesController');
 });
 
-Route::get('/new/note', 'NotesController@new');
+Route::get('/new/note', 'PagesController@new_note');
