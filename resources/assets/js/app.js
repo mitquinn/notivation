@@ -18,6 +18,8 @@ require('spark-bootstrap');
 
 require('./components/bootstrap');
 
+require('./components/new_note.js');
+
 var app = new Vue({
     mixins: [require('spark')]
 });

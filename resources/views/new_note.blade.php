@@ -1,7 +1,7 @@
 @extends('spark::layouts.app')
 
 @section('content')
-<home :user="user" inline-template>
+<new_note :user="user" inline-template>
 	<div class="container">
 		<div class="row">
 			<div class="col-md-8 col-md-offset-2">
@@ -30,5 +30,5 @@
 			</div>
 		</div>
 	</div>
-</home>
+</new_note>
 @endsection

@@ -6,13 +6,19 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Note;
+use App\Notivation\Transformers\NoteTransformer;
+use Response;
+use Auth;
 
-class NotesController extends Controller
+class NotesController extends ApiController
 {
 
-    public function __construct()
+    protected $noteTransformer;
+
+    public function __construct(NoteTransformer $noteTransformer)
     {
-        $this->middleware('auth');
+        $this->noteTransformer = $noteTransformer;
+        // $this->middleware('auth');
     }
 
 
@@ -23,7 +29,16 @@ class NotesController extends Controller
      */
     public function index()
     {
-        return Note::all();
+
+        $user_notes = Auth::user()->notes;
+        if($user_notes->isEmpty())
+            {
+                return $this->respondNotFound('No notes found for this user.');
+            }
+        return $this->respond([
+                'data' => $this->noteTransformer->transformCollection($user_notes->toArray())
+        ]);
+
     }
 
     /**
@@ -55,7 +70,16 @@ class NotesController extends Controller
      */
     public function show($id)
     {
-        //
+        $note = Note::find($id);
+
+        if(!$note)
+            {
+                return $this->respondNotFound('No notes found for this user.');        
+            }
+
+        return $this->respond([
+            'data' => $this->noteTransformer->transform($note)
+        ]);
     }
 
     /**
