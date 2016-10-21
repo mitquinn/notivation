@@ -19,3 +19,5 @@ Route::get('/home', 'HomeController@show');
 Route::group(['prefix' => 'api/v1'], function() {
 	Route::resource('notes','NotesController');
 });
+
+Route::get('/new/note', 'NotesController@new');
