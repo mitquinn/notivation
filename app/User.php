@@ -53,4 +53,9 @@ class User extends SparkUser
         return $this->hasMany('App\Note');
     }
 
+    public function tags()
+    {
+        return $this->hasMany('App\Tag');
+    }
+
 }

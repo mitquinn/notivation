@@ -15,6 +15,9 @@ Route::group([
     'middleware' => 'auth:api'
 ], function () {
     Route::group(['prefix' => 'v1'], function() {
+    	Route::get('notes/gettags/{note_id}', 'NotesController@gettags');
+		Route::post('notes/addtag', 'NotesController@addtag');
+		Route::delete('notes/removetag/{tag_id}', 'NotesController@removetag');
 		Route::resource('notes','NotesController');
 	});
 });

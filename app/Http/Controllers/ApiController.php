@@ -38,4 +38,20 @@ class ApiController extends Controller {
 				]
 			]);
 		}
+
+	public function respondWithSuccess($message)
+		{
+			return $this->respond([
+				'success' => [
+					'message' => $message,
+					'status_code' => $this->getStatusCode()
+				]
+			]);
+		}
+
+	public function respondDeleted($message)
+		{
+			return $this->respondWithSuccess($message);
+		}
+
 }

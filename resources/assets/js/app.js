@@ -18,8 +18,22 @@ require('spark-bootstrap');
 
 require('./components/bootstrap');
 
+require('./components/note.js');
 require('./components/new_note.js');
+require('./components/edit_note.js');
+require('./components/tag.js');
+require('./components/add_tag.js');
 
 var app = new Vue({
-    mixins: [require('spark')]
+    mixins: [require('spark')],
+
+    events: {
+        'updateNotes': function() {
+            this.$broadcast('notesRefresh');
+        },
+        'updateTags': function() {
+        	this.$broadcast('tagsRefresh');
+        }
+    },
+
 });
