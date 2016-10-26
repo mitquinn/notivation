@@ -22,12 +22,6 @@ class NotesController extends ApiController
 		// $this->middleware('auth');
 	}
 
-
-	/**
-	 * Display a listing of the resource.
-	 *
-	 * @return \Illuminate\Http\Response
-	 */
 	public function index()
 	{
 		$user_notes = Auth::user()->notes;
@@ -41,34 +35,12 @@ class NotesController extends ApiController
 
 	}
 
-	/**
-	 * Show the form for creating a new resource.
-	 *
-	 * @return \Illuminate\Http\Response
-	 */
-	public function create()
-	{
-		//
-	}
-
-	/**
-	 * Store a newly created resource in storage.
-	 *
-	 * @param  \Illuminate\Http\Request  $request
-	 * @return \Illuminate\Http\Response
-	 */
 	public function store(Request $request)
 	{
 		Auth::user()->notes()->create($request->all());
 		return $this->respondWithSuccess("The note has been created.");
 	}
 
-	/**
-	 * Display the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return \Illuminate\Http\Response
-	 */
 	public function show($id)
 	{
 		$user_id = Auth::user()->id;
@@ -85,24 +57,6 @@ class NotesController extends ApiController
 		]);
 	}
 
-	/**
-	 * Show the form for editing the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return \Illuminate\Http\Response
-	 */
-	public function edit($id)
-	{
-		//
-	}
-
-	/**
-	 * Update the specified resource in storage.
-	 *
-	 * @param  \Illuminate\Http\Request  $request
-	 * @param  int  $id
-	 * @return \Illuminate\Http\Response
-	 */
 	public function update(Request $request, $id)
 	{
 		$user_id = Auth::user()->id;
@@ -118,12 +72,6 @@ class NotesController extends ApiController
 
 	}
 
-	/**
-	 * Remove the specified resource from storage.
-	 *
-	 * @param  int  $id
-	 * @return \Illuminate\Http\Response
-	 */
 	public function destroy($id)
 	{
 		$user_id = Auth::user()->id;
@@ -155,6 +103,7 @@ class NotesController extends ApiController
 				'data' => $note_tags->toArray(),
 		]);
 	}
+
 	public function addtag(Request $request)
 	{
 		$user_id = Auth::user()->id;
@@ -172,12 +121,13 @@ class NotesController extends ApiController
 
 		//Attach Note/Tag to Pivot Table
 		$note = Note::where('id', $request->note_id)->where('user_id', $user_id)->first();
-		$note->tags()->attach($tag_id);
-		
-		return $this->respondWithSuccess("The tag has been created.");
-
+		if($note->tags()->attach($tag_id))
+			{
+				return $this->respondWithSuccess("The tag has been created.");
+			}
 
 	}
+	
 	public function removetag($tag_id)
 	{
 		$user_id = Auth::user()->id;
