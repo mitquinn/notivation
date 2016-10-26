@@ -143,7 +143,7 @@
 <template id="add-tag-template">
 	<div class="form-group">
 		<label for="tag">Add Tag:</label>
-		<input v-model="name" type="input" class="form-control" id="tag"  @keyup.enter="addTag()">
+		<input placeholder="Press Enter to add a Tag" v-model="name" type="input" class="form-control" id="tag"  @keyup.enter="addTag()">
 	</div>
 </template>
 
