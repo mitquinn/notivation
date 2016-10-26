@@ -7,7 +7,7 @@
 		<div class="panel-heading">Welcome to Notivation!</div>
 		<div class="panel-body">
 			<p>Welcome to Notivation!, Press the + sign on the top right to add a new note.</p>
-			<p>You can tag your notes by pressing the edit button in the newly note panel box.</p>
+			<p>You can tag your notes by pressing the edit button in the newly created note panel box.</p>
 		</div>
 	</div>
 	<notes></notes>
